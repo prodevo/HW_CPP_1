@@ -4,6 +4,7 @@ using namespace std;
 class Microfone
 {
 public:
+
 	void SetDefault(string br, string mod, int vol, bool out, bool p) {
 		brand = br;
 		model = mod;
@@ -30,6 +31,22 @@ public:
 
 	void ChangeVolume(int vol) {
 		volume = vol;
+	}
+
+	void SetVolume(int vol) {
+		if (vol > 100 or vol < 0)
+		{
+			cout << "ERROR\n";
+			volume = 60;
+		}
+		else
+		{
+			volume = vol;
+		}
+	}
+
+	int GetVolume() const {
+		return volume;
 	}
 
 
@@ -72,6 +89,23 @@ public:
 		resolution = res;
 	}
 
+	void SetBrand(string br) {
+		if (br == "Nikon")
+		{
+			cout << "ERROR (JUST DON`T LIKE IT)\n";
+			brand = "Razer";
+		}
+
+		else
+		{
+			brand = br;
+		}
+	}
+
+	string GetBrand() const {
+		return brand;
+	}
+
 
 private:
 	string brand;
@@ -110,6 +144,22 @@ public:
 
 	string GetTaste() {
 		return taste;
+	}
+
+	int GetLength() {
+		return length;
+	}
+
+	void SetLength(int l) {
+		if (l < 0)
+		{
+			cout << "ERROR\n";
+			length = 1;
+		}
+		else
+		{
+			length = l;
+		}
 	}
 
 
@@ -153,6 +203,22 @@ public:
 		return colour;
 	}
 
+	void SetAge(int a) {
+		if (a > 25 or a < 0)
+		{
+			cout << "ERROR\n";
+			age = 5;
+		}
+		else
+		{
+			age = a;
+		}
+	}
+
+	int GetAge() const {
+		return age;
+	}
+
 
 private:
 	string brand;
@@ -194,6 +260,23 @@ public:
 		color = col;
 	}
 
+	void SetSymbol(string sym) {
+		if (sym == "F13")
+		{
+			cout << "ERROR (JUST DON`T EXIST)\n";
+			symbol = "F8";
+		}
+
+		else
+		{
+			symbol = sym;
+		}
+	}
+
+	string GetSymbol() const {
+		return symbol;
+	}
+
 
 private:
 	string brand;
@@ -213,6 +296,8 @@ int main()
 	microfone.Mute(false);
 	microfone.PlugIn(true);
 	microfone.PrintInfo();
+	microfone.SetVolume(150);
+	cout << "volume: " << microfone.GetVolume() << "\n";
 
 
 	Webcam webcam;
@@ -222,15 +307,20 @@ int main()
 	webcam.Blur(false);
 	webcam.PlugIn(true);
 	webcam.PrintInfo();
+	webcam.SetBrand("Nikon");
+	cout << "brand: " << webcam.GetBrand() << "\n";
 
 
 	Candy candy;
 
 	candy.SetDefault("Twix", "original", "brown", "rectangle", 10);
 	candy.ChangeLength(8);
-	candy.GetBrand();
 	candy.GetTaste();
 	candy.PrintInfo();
+	candy.SetLength(-7);
+	cout << "Brand: " << candy.GetBrand() << "\n";
+	cout << "Length: " << candy.GetLength() << "\n";
+
 
 
 	Glasses glasses;
@@ -240,6 +330,8 @@ int main()
 	glasses.GetBrand();
 	glasses.GetColour();
 	glasses.PrintInfo();
+	glasses.SetAge(150);
+	cout << "age: " << glasses.GetAge() << "\n";
 
 
 	Button button;
@@ -249,47 +341,6 @@ int main()
 	button.Paint("White");
 	button.PlugIn(1);
 	button.PrintInfo();
+	button.SetSymbol("F13");
+	cout << "Symbol: " << button.GetSymbol() << "\n";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//easter egg jk
