@@ -5,6 +5,20 @@ class Microfone
 {
 public:
 
+	Microfone(int vol, string br) {
+		cout << "C-TOR with 2 parameters\n";
+		this->volume = vol;
+		this->brand = br;
+	}
+
+	Microfone() : Microfone(90, "Alex") {
+		cout << "C-TOR without parameters\n";
+	}
+
+	Microfone(const Microfone &microfone) : volume(microfone.volume), brand(microfone.brand) {
+		cout << "copy C-TOR\n";
+	}
+
 	void SetDefault(string br, string mod, int vol, bool out, bool p) {
 		brand = br;
 		model = mod;
@@ -45,6 +59,33 @@ public:
 		}
 	}
 
+	void SetOwner(string own) {
+		if (own == "")
+		{
+			cout << "ERROR (EMPTY FIELD)\n";
+			return;
+		}
+		else
+		{
+			string* temp = new string[length + 1];
+			for (int i = 0; i < length; i++)
+			{
+				temp[i] = owners[i];
+			}
+			temp[length] = own;
+			delete[] owners;
+			owners = temp;
+			length++;
+		}
+	}
+
+	void getOwners() const{
+		for (int i = 0; i < length; i++)
+		{
+			cout << owners[i] << "\n";
+		}
+	}
+
 	int GetVolume() const {
 		return volume;
 	}
@@ -56,6 +97,8 @@ private:
 	int volume;
 	bool output;
 	bool power;
+	string* owners = nullptr;
+	unsigned int length = 0;
 };
 
 class Webcam
@@ -118,6 +161,21 @@ private:
 class Candy
 {
 public:
+
+	Candy(int l, string tas) {
+		cout << "\nC-TOR with 2 parameters\n";
+		this->length = l;
+		this->taste = tas;
+	}
+
+	Candy() : Candy(90, "Alex") {
+		cout << "C-TOR without parameters\n";
+	}
+
+	Candy(const Candy &candy) : length(candy.length), taste(candy.taste) {
+		cout << "copy C-TOR\n";
+	}
+
 	void SetDefault(string br, string tas, string col, string sha, int l) {
 		brand = br;
 		taste = tas;
@@ -127,7 +185,7 @@ public:
 	}
 
 	void PrintInfo() {
-		cout << "\nbrand: " << brand << "\n";
+		cout << "brand: " << brand << "\n";
 		cout << "taste: " << taste << "\n";
 		cout << "colour: " << colour << "\n";
 		cout << "shape: " << shape << "\n";
@@ -162,6 +220,33 @@ public:
 		}
 	}
 
+	void SetContent(string con) {
+		if (con == "")
+		{
+			cout << "ERROR (EMPTY FIELD)\n";
+			return;
+		}
+		else
+		{
+			string* temp = new string[list_length + 1];
+			for (int i = 0; i < list_length; i++)
+			{
+				temp[i] = contents[i];
+			}
+			temp[list_length] = con;
+			delete[] contents;
+			contents = temp;
+			list_length++;
+		}
+	}
+
+	void getOwners() const {
+		for (int i = 0; i < length; i++)
+		{
+			cout << contents[i] << "\n";
+		}
+	}
+
 
 private:
 	string brand;
@@ -169,6 +254,8 @@ private:
 	string colour;
 	string shape;
 	int length;
+	string* contents = nullptr;
+	unsigned int list_length = 0;
 };
 
 
@@ -291,13 +378,20 @@ int main()
 {
 	Microfone microfone;
 
-	microfone.SetDefault("fifine", "AM8", 100, true, false);
-	microfone.ChangeVolume(50);
+	//microfone.SetDefault("fifine", "AM8", 100, true, false);
+	//microfone.ChangeVolume(50);
 	microfone.Mute(false);
 	microfone.PlugIn(true);
 	microfone.PrintInfo();
-	microfone.SetVolume(150);
+	//microfone.SetVolume(150);
+	//microfone.SetOwner("s");
+	//microfone.SetOwner("");
+	//microfone.SetOwner("a");
+	//microfone.getOwners();
+	//microfone.SetOwner("brrr");
+	//microfone.getOwners();
 	cout << "volume: " << microfone.GetVolume() << "\n";
+	Microfone copy(microfone);
 
 
 	Webcam webcam;
@@ -308,7 +402,7 @@ int main()
 	webcam.PlugIn(true);
 	webcam.PrintInfo();
 	webcam.SetBrand("Nikon");
-	cout << "brand: " << webcam.GetBrand() << "\n";
+	cout << "brand: " << webcam.GetBrand() << "\n\n";
 
 
 	Candy candy;
@@ -320,6 +414,7 @@ int main()
 	candy.SetLength(-7);
 	cout << "Brand: " << candy.GetBrand() << "\n";
 	cout << "Length: " << candy.GetLength() << "\n";
+	Candy copied(candy);
 
 
 
